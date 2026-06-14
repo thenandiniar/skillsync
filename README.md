@@ -12,10 +12,10 @@ SkillSync is an AI-powered web application that analyzes resumes and compares th
 
 ## 👥 Team Members
 
-* **Sowmya N** – Computer Science Engineering (CSE)
 * **Nandini A R** – Artificial Intelligence and Machine Learning (AIML)
-* **Keerthana** – Artificial Intelligence and Machine Learning (AIML)
 * **S. G. Harshitha** – Computer Science Engineering (CSE)
+* **Sowmya N** – Computer Science Engineering (CSE)
+* **Keerthana** – Artificial Intelligence and Machine Learning (AIML)
 
 ---
 
