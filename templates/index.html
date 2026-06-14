@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SkillSync</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div>
+        <h1>SkillSync</h1>
+        <p class="subtitle">Match your resume skills to a job description (simple demo using pdfplumber).</p>
+      </div>
+      <div class="badge">Flask + pdfplumber</div>
+    </header>
+
+    <main class="card">
+      <form method="POST" enctype="multipart/form-data">
+        <section class="section">
+          <label class="label">Upload Resume (PDF)</label>
+          <input class="input" type="file" name="resume" accept="application/pdf" required />
+          <div class="help">Tip: Use a text-based PDF for best extraction results.</div>
+        </section>
+
+        <section class="section">
+          <label class="label">Job Description</label>
+          <textarea class="textarea" name="job_description" rows="10" placeholder="Paste the job description here..." required></textarea>
+        </section>
+
+        <button class="button" type="submit">Analyze &amp; Match</button>
+      </form>
+
+      {% if error %}
+        <div class="alert" role="alert">{{ error }}</div>
+      {% endif %}
+
+      {% if match_percentage is not none %}
+        <section class="results">
+          <h2 class="results-title">Results</h2>
+
+          <div class="score-row">
+            <div class="score">
+              <div class="score-label">Match Percentage</div>
+              <div class="score-value">{{ match_percentage }}%</div>
+            </div>
+            <div class="score-meta">
+              <div class="meta-item">
+                <span class="meta-label">Job skills found:</span>
+                <span class="meta-value">{{ job_skills_count }}</span>
+              </div>
+              <div class="meta-item">
+                <span class="meta-label">Skills database size:</span>
+                <span class="meta-value">{{ 17 }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="panel">
+              <h3>Matching Skills</h3>
+              {% if matching_skills|length == 0 %}
+                <p class="empty">No matching skills found.</p>
+              {% else %}
+                <ul class="list">
+                  {% for skill in matching_skills %}
+                    <li class="chip">{{ skill }}</li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </div>
+
+            <div class="panel">
+              <h3>Missing Skills</h3>
+              {% if missing_skills|length == 0 %}
+                <p class="empty">You cover all extracted job skills 🎉</p>
+              {% else %}
+                <ul class="list">
+                  {% for skill in missing_skills %}
+                    <li class="chip chip-missing">{{ skill }}</li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="footer-note">
+            Note: This demo uses a fixed skill database and simple text matching.
+          </div>
+        </section>
+      {% endif %}
+    </main>
+  </div>
+</body>
+</html>
+
